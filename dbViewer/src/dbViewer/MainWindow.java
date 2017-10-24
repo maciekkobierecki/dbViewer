@@ -17,10 +17,9 @@ public class MainWindow extends JFrame implements ActionListener {
 	private JButton fetchInfoButton;
 	private JLabel infoLabel;
 	private JTable data;
-	Client client;
+	//Client client;
 	MainWindow(){
 		super("dbViewer");
-		client=new Client();
 		infoLabel=new JLabel();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//this.setPreferredSize(new Dimension(200,100));
@@ -41,7 +40,8 @@ public class MainWindow extends JFrame implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		client.fetchInfo();
+		FetchDataWorker worker= new FetchDataWorker(FetchDataWorker.METADATA, data, null);
+		worker.execute();
 		
 	}
 }

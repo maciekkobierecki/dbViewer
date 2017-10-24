@@ -10,8 +10,11 @@ import org.apache.http.client.ClientProtocolException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ResponseHandler implements org.apache.http.client.ResponseHandler<String> {
+public class ResponseHandlerr implements org.apache.http.client.ResponseHandler<String> {
 
+	public ResponseHandlerr(String dataType, String tableName){
+		
+	}
 	@Override
 	public String handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
 		BufferedReader r = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
@@ -29,7 +32,7 @@ public class ResponseHandler implements org.apache.http.client.ResponseHandler<S
 			}
 		}
 		
-		return null;
+		return "HELO";
 	}
 
 }
