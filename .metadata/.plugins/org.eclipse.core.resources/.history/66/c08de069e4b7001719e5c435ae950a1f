@@ -1,0 +1,42 @@
+package dbViewer;
+
+import java.awt.Dimension;
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+public class MainWindow extends JFrame {
+
+	private JButton fetchInfoButton;
+	private JLabel infoLabel, portLabel, addressLabel;
+	private JTextField portField, addressField;
+	
+	MainWindow(){
+		super("dbViewer");
+		infoLabel=new JLabel();
+		portLabel=new JLabel();
+		addressLabel=new JLabel();
+		portField=new JTextField();
+		addressField=new JTextField();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setPreferredSize(new Dimension(300,300));
+		fetchInfoButton=new JButton("fetch info");
+		this.setLayout(new GridLayout(3,2));
+		infoLabel.setText("nothing to show");
+		portLabel.setText("Port:");
+		addressLabel.setText("Address:");
+		add(infoLabel);
+		add(fetchInfoButton);
+		add(portLabel);
+		add(portField);
+		add(addressLabel);
+		add(addressField);
+		pack();
+		setVisible(true);
+		
+		
+	}
+}

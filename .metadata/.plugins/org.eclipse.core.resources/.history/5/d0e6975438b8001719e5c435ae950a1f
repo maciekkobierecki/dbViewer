@@ -1,0 +1,52 @@
+package dbViewer;
+
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+public class MainWindow extends JFrame implements ActionListener {
+
+	private JButton fetchInfoButton;
+	private JLabel infoLabel, portLabel, addressLabel;
+	private JTextField portField, addressField;
+	Client client;
+	MainWindow(){
+		super("dbViewer");
+		client=new Client();
+		infoLabel=new JLabel();
+		portLabel=new JLabel();
+		addressLabel=new JLabel();
+		portField=new JTextField();
+		addressField=new JTextField();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setPreferredSize(new Dimension(300,300));
+		fetchInfoButton=new JButton("fetch info");
+		this.setLayout(new GridLayout(3,2));
+		infoLabel.setText("nothing to show");
+		portLabel.setText("Port:");
+		addressLabel.setText("Address:");
+		fetchInfoButton.addActionListener(this);
+		add(infoLabel);
+		add(fetchInfoButton);
+		add(portLabel);
+		add(portField);
+		add(addressLabel);
+		add(addressField);
+		pack();
+		setVisible(true);
+		
+		
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		client.fetchInfo();
+		
+	}
+}
