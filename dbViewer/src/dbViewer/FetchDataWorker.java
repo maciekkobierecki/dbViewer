@@ -82,33 +82,46 @@ public class FetchDataWorker extends SwingWorker<Integer,String> {
 			
 			break;
 		case DATA:
-			Iterator<String>rowIterator=dataJSON.keys();
-			JSONObject rowJSON=dataJSON.getJSONObject(rowIterator.next());
+			JSONObject rowJSON=dataJSON.getJSONObject("Row1");
 			DefaultTableModel model=addColumns(rowJSON);
 			Object[] row;
+			Iterator<String>rowIterator=dataJSON.keys();
 			while(rowIterator.hasNext()){
+				rowJSON=dataJSON.getJSONObject(rowIterator.next());
 				row=new Object[rowJSON.length()];
-				for(int i=1; i<=rowJSON.length(); i++){
-					String columnName=model.getColumnName(i-1);
-					row[i-1]=rowJSON.get(columnName);
+				for(int i=0; i<rowJSON.length(); i++){
+					String columnName=model.getColumnName(i);
+					row[i]=rowJSON.get(columnName);
 				}
 				model.addRow(row);
-				rowJSON=dataJSON.getJSONObject(rowIterator.next());
+				
 			}
 			break;
 		
 	}
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			DefaultTableModel model=(DefaultTableModel)dataTable.getModel();
+			model.addColumn("");
+			model.addRow(new Object[]{"tablica pusta"});
 		}
 		
 	}
 	public DefaultTableModel addColumns(JSONObject row){
 		DefaultTableModel model=(DefaultTableModel)dataTable.getModel();
 		Iterator<String>columns=row.keys();
-		while(columns.hasNext())
-			model.addColumn(columns.next());
+		int counter=0;
+		int idColumnPosition=0;
+		String columnLabel;
+		while(columns.hasNext()){
+
+			columnLabel=columns.next();
+			model.addColumn(columnLabel);
+			if(columnLabel.equals("id"))
+				idColumnPosition=counter;
+			counter++;
+				
+		}
+		dataTable.moveColumn(idColumnPosition, 0);
 		return model;
 		
 	}

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,7 +19,7 @@ public class TableWindow extends JFrame {
 		this.setLayout(new BorderLayout());
 		DefaultTableModel tableModel=new DefaultTableModel();
 		dataTable=new JTable(tableModel);
-		add(dataTable);
+		add(new JScrollPane(dataTable));
 		pack();
 		setVisible(true);
 		FetchDataWorker fetchWorker=new FetchDataWorker(new Client(manager, FetchDataWorker.DATA, tableName), FetchDataWorker.DATA, dataTable, tableName);
