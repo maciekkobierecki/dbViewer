@@ -20,18 +20,15 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 
 public class MainWindow extends JFrame implements ActionListener {
 
-	private JButton fetchInfoButton, FetchTableButton;
-	private JLabel infoLabel;
+	private JButton fetchInfoButton;
 	private JTable data;
 	PoolingHttpClientConnectionManager  connectionManager=new PoolingHttpClientConnectionManager();
 	//Client client;
 	MainWindow(){
 		super("dbViewer");
-		infoLabel=new JLabel();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		FetchTableButton=new JButton("Fetch Table");
 		//this.setPreferredSize(new Dimension(200,100));
-		fetchInfoButton=new JButton("fetch info");
+		fetchInfoButton=new JButton("refresh");
 		
 		this.setLayout(new BorderLayout());
 		DefaultTableModel model=new DefaultTableModel();
@@ -44,12 +41,10 @@ public class MainWindow extends JFrame implements ActionListener {
 			}
 		};
 		data.setPreferredSize(new Dimension(400,300));
-		infoLabel.setText("nothing to show");
 		fetchInfoButton.addActionListener(this);
-		add(infoLabel);
+
 		add(fetchInfoButton, BorderLayout.LINE_END);
 		add(data, BorderLayout.PAGE_START);
-		add(FetchTableButton, BorderLayout.LINE_START);
 		pack();
 		setVisible(true);
 		data.addMouseListener(new MouseAdapter(){
@@ -67,6 +62,7 @@ public class MainWindow extends JFrame implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		((DefaultTableModel)data.getModel()).setRowCount(0);
 		FetchDataWorker worker= new FetchDataWorker(new Client(connectionManager, FetchDataWorker.METADATA, null),FetchDataWorker.METADATA, data, null, FetchDataWorker.ONLY_TITLES_MODE);
 		worker.execute();
 		

@@ -104,6 +104,10 @@ public class FetchDataWorker extends SwingWorker<Integer,String> {
 			model.addColumn("");
 			model.addRow(new Object[]{"tablica pusta"});
 		}
+		finally{
+			dataTable.setAutoCreateRowSorter(true);
+			dataTable.getRowSorter().toggleSortOrder(dataTable.convertColumnIndexToModel(0));
+		}
 		
 	}
 	public DefaultTableModel addColumns(JSONObject row){
